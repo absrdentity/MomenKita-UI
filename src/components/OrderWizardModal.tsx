@@ -4,21 +4,18 @@ import {
   Check,
   ChevronRight,
   ChevronLeft,
-  QrCode,
   CreditCard,
   Wallet,
   Clock,
   Copy,
-  Download,
   Share2,
-  Sparkles,
-  ShieldCheck,
   CheckCircle2,
   AlertCircle,
-  ExternalLink,
 } from 'lucide-react';
-import { Template, PricingPackage, AddOn, OrderData } from '../types';
 import { TEMPLATES_DATA, PRICING_PACKAGES, ADDONS_DATA } from '../data/mockData';
+
+const BCA_ACCOUNT_NUMBER = '7315170460';
+const BCA_ACCOUNT_HOLDER = 'Agisyah Rifaji Putra Pratama';
 
 interface OrderWizardModalProps {
   isOpen: boolean;
@@ -86,7 +83,7 @@ export const OrderWizardModal: React.FC<OrderWizardModalProps> = ({
   const [customerEmail, setCustomerEmail] = useState<string>('budi.ayu@gmail.com');
 
   // Payment State
-  const [paymentMethod, setPaymentMethod] = useState<'qris' | 'va_bca' | 'va_mandiri' | 'va_bri' | 'gopay'>('qris');
+  const [paymentMethod, setPaymentMethod] = useState<'bca_transfer' | 'gopay'>('bca_transfer');
   const [uniqueCode] = useState<number>(() => Math.floor(100 + Math.random() * 899));
   const [paymentSecondsLeft, setPaymentSecondsLeft] = useState<number>(900); // 15 mins
   const [isVerifying, setIsVerifying] = useState<boolean>(false);
@@ -177,10 +174,10 @@ export const OrderWizardModal: React.FC<OrderWizardModalProps> = ({
         <div className="px-6 py-4 border-b border-stone-200 bg-[#FAF9F5] flex items-center justify-between">
           <div>
             <h2 className="font-serif-display text-xl sm:text-2xl font-bold text-stone-900">
-              Pemesanan & Pembayaran Otomatis
+              Pemesanan & Pembayaran
             </h2>
             <p className="text-xs text-stone-500">
-              Sistem instan terverifikasi tanpa perlu konfirmasi manual via admin
+              Pilih desain, lengkapi data, lalu transfer sesuai nominal tagihan
             </p>
           </div>
           <button
@@ -192,7 +189,7 @@ export const OrderWizardModal: React.FC<OrderWizardModalProps> = ({
           </button>
         </div>
 
-        {/* Step Progress Bar (Clean unboxed typography) */}
+        {/* Step Progress Bar */}
         <div className="px-6 py-3 bg-stone-100/70 border-b border-stone-200 text-xs text-stone-600 flex items-center justify-between overflow-x-auto gap-2">
           <div
             onClick={() => !isPaid && setStep(1)}
@@ -238,7 +235,7 @@ export const OrderWizardModal: React.FC<OrderWizardModalProps> = ({
             <span className="w-5 h-5 rounded-full bg-emerald-700 text-white flex items-center justify-center text-[10px]">
               4
             </span>
-            <span>Bayar Otomatis</span>
+            <span>Pembayaran</span>
           </div>
         </div>
 
@@ -660,7 +657,7 @@ export const OrderWizardModal: React.FC<OrderWizardModalProps> = ({
             </div>
           )}
 
-          {/* STEP 4: SISTEM PEMBAYARAN OTOMATIS */}
+          {/* STEP 4: PEMBAYARAN */}
           {step === 4 && (
             <div className="space-y-6">
               {!isPaid ? (
@@ -668,10 +665,10 @@ export const OrderWizardModal: React.FC<OrderWizardModalProps> = ({
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-stone-200 pb-4">
                     <div>
                       <h3 className="font-serif-display text-lg sm:text-xl font-bold text-stone-900">
-                        Sistem Pembayaran Otomatis
+                        Pembayaran
                       </h3>
                       <p className="text-xs text-stone-500">
-                        Verifikasi otomatis dalam hitungan detik setelah transfer berhasil.
+                        Transfer sesuai nominal tepat, lalu klik tombol konfirmasi di bawah.
                       </p>
                     </div>
 
@@ -685,44 +682,20 @@ export const OrderWizardModal: React.FC<OrderWizardModalProps> = ({
                   {/* Payment Methods Selection */}
                   <div>
                     <label className="block text-xs font-semibold text-stone-700 mb-2">
-                      Pilih Jalur Pembayaran Otomatis
+                      Pilih Metode Pembayaran
                     </label>
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+                    <div className="grid grid-cols-2 gap-2 text-xs">
                       <button
                         type="button"
-                        onClick={() => setPaymentMethod('qris')}
+                        onClick={() => setPaymentMethod('bca_transfer')}
                         className={`p-2.5 rounded-lg border text-center transition-all cursor-pointer ${
-                          paymentMethod === 'qris'
-                            ? 'border-stone-900 bg-stone-900 text-white font-semibold'
-                            : 'border-stone-200 hover:border-stone-300'
-                        }`}
-                      >
-                        <QrCode className="w-4 h-4 mx-auto mb-1" />
-                        <span>QRIS Instan</span>
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => setPaymentMethod('va_bca')}
-                        className={`p-2.5 rounded-lg border text-center transition-all cursor-pointer ${
-                          paymentMethod === 'va_bca'
+                          paymentMethod === 'bca_transfer'
                             ? 'border-stone-900 bg-stone-900 text-white font-semibold'
                             : 'border-stone-200 hover:border-stone-300'
                         }`}
                       >
                         <CreditCard className="w-4 h-4 mx-auto mb-1" />
-                        <span>BCA Virtual Account</span>
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => setPaymentMethod('va_mandiri')}
-                        className={`p-2.5 rounded-lg border text-center transition-all cursor-pointer ${
-                          paymentMethod === 'va_mandiri'
-                            ? 'border-stone-900 bg-stone-900 text-white font-semibold'
-                            : 'border-stone-200 hover:border-stone-300'
-                        }`}
-                      >
-                        <CreditCard className="w-4 h-4 mx-auto mb-1" />
-                        <span>Mandiri VA</span>
+                        <span>Transfer Bank BCA</span>
                       </button>
                       <button
                         type="button"
@@ -744,7 +717,7 @@ export const OrderWizardModal: React.FC<OrderWizardModalProps> = ({
                     {/* Amount Banner */}
                     <div className="flex items-center justify-between border-b border-stone-200/80 pb-4">
                       <div>
-                        <span className="text-xs text-stone-500">Total Tagihan Otomatis:</span>
+                        <span className="text-xs text-stone-500">Total Tagihan:</span>
                         <div className="font-serif-display text-2xl sm:text-3xl font-bold text-stone-900 tabular-nums">
                           {formatRupiah(grandTotal)}
                         </div>
@@ -752,102 +725,42 @@ export const OrderWizardModal: React.FC<OrderWizardModalProps> = ({
                       <div className="text-right text-[11px] text-stone-500">
                         <span>Kode Unik Verifikasi: </span>
                         <span className="font-mono font-bold text-amber-800">+{uniqueCode}</span>
-                        <p className="text-[10px] text-stone-400">Termasuk nominal acak untuk auto-cek</p>
+                        <p className="text-[10px] text-stone-400">Digunakan untuk mencocokkan transfer Anda</p>
                       </div>
                     </div>
 
                     {/* Method Specific Display */}
-                    {paymentMethod === 'qris' && (
-                      <div className="flex flex-col sm:flex-row items-center gap-6 justify-center">
-                        {/* Dynamic QRIS Mockup */}
-                        <div className="bg-white p-4 rounded-xl border border-stone-300 shadow-sm text-center shrink-0">
-                          <div className="w-44 h-44 bg-stone-900 p-2 rounded-lg flex items-center justify-center text-white relative">
-                            {/* Stylized high contrast QR pattern */}
-                            <div className="w-full h-full bg-white p-2 rounded flex flex-col justify-between">
-                              <div className="flex justify-between">
-                                <div className="w-9 h-9 border-4 border-stone-900 rounded flex items-center justify-center">
-                                  <div className="w-3.5 h-3.5 bg-stone-900" />
-                                </div>
-                                <div className="w-9 h-9 border-4 border-stone-900 rounded flex items-center justify-center">
-                                  <div className="w-3.5 h-3.5 bg-stone-900" />
-                                </div>
-                              </div>
-                              <div className="flex justify-center items-center py-1">
-                                <div className="text-[9px] font-bold text-stone-900 bg-amber-200 px-1 rounded">
-                                  QRIS INSTAN
-                                </div>
-                              </div>
-                              <div className="flex justify-between items-end">
-                                <div className="w-9 h-9 border-4 border-stone-900 rounded flex items-center justify-center">
-                                  <div className="w-3.5 h-3.5 bg-stone-900" />
-                                </div>
-                                <div className="w-9 h-9 grid grid-cols-2 gap-0.5 p-0.5">
-                                  <div className="bg-stone-900" />
-                                  <div className="bg-stone-300" />
-                                  <div className="bg-stone-300" />
-                                  <div className="bg-stone-900" />
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <p className="text-[10px] font-bold text-stone-700 mt-2">
-                            NMID: ID1020268849182
-                          </p>
-                          <p className="text-[9px] text-stone-500">MOMENKITA DIGITAL STUDIO</p>
-                        </div>
-
-                        {/* Instructions */}
-                        <div className="text-xs text-stone-600 space-y-2">
-                          <p className="font-semibold text-stone-900">
-                            Cara Pembayaran via QRIS Otomatis:
-                          </p>
-                          <ol className="list-decimal pl-4 space-y-1 text-[11px] text-stone-600">
-                            <li>Buka aplikasi m-Banking (BCA, Mandiri, BRI, BNI) atau E-Wallet (GoPay, OVO, ShopeePay, DANA).</li>
-                            <li>Pilih menu <strong>Scan / Bayar QRIS</strong>.</li>
-                            <li>Arahkan kamera ke kode QR di samping.</li>
-                            <li>Periksa nominal harus tepat <strong>{formatRupiah(grandTotal)}</strong>.</li>
-                            <li>Selesaikan pembayaran, sistem mendeteksi otomatis &lt; 5 detik!</li>
-                          </ol>
-                        </div>
-                      </div>
-                    )}
-
-                    {(paymentMethod === 'va_bca' || paymentMethod === 'va_mandiri') && (
+                    {paymentMethod === 'bca_transfer' && (
                       <div className="space-y-4">
-                        <div className="bg-white p-4 rounded-xl border border-stone-300 flex items-center justify-between">
+                        <div className="bg-white p-4 rounded-xl border border-stone-300 flex items-center justify-between gap-3">
                           <div>
                             <span className="text-[11px] text-stone-500 block">
-                              Nomor Virtual Account {paymentMethod === 'va_bca' ? 'BCA' : 'Mandiri'}:
+                              Transfer ke Rekening BCA:
                             </span>
                             <span className="text-lg font-mono font-bold text-stone-900">
-                              {paymentMethod === 'va_bca' ? '8277 0812 9948 2011' : '8890 8129 9482 0110'}
+                              {BCA_ACCOUNT_NUMBER}
                             </span>
                             <span className="text-[10px] text-stone-500 block">
-                              Atas Nama: MOMENKITA - {customerName}
+                              Atas Nama: {BCA_ACCOUNT_HOLDER}
                             </span>
                           </div>
                           <button
-                            onClick={() =>
-                              handleCopy(
-                                paymentMethod === 'va_bca' ? '8277081299482011' : '8890812994820110',
-                                'va'
-                              )
-                            }
-                            className="px-3 py-1.5 bg-stone-100 hover:bg-stone-200 rounded-md text-xs font-semibold flex items-center gap-1.5 cursor-pointer"
+                            onClick={() => handleCopy(BCA_ACCOUNT_NUMBER, 'rekening')}
+                            className="px-3 py-1.5 bg-stone-100 hover:bg-stone-200 rounded-md text-xs font-semibold flex items-center gap-1.5 cursor-pointer shrink-0"
                           >
-                            {copiedText === 'va' ? (
+                            {copiedText === 'rekening' ? (
                               <Check className="w-3.5 h-3.5 text-emerald-600" />
                             ) : (
                               <Copy className="w-3.5 h-3.5" />
                             )}
-                            <span>{copiedText === 'va' ? 'Tersalin' : 'Salin Nomor VA'}</span>
+                            <span>{copiedText === 'rekening' ? 'Tersalin' : 'Salin No. Rekening'}</span>
                           </button>
                         </div>
 
                         <div className="text-xs text-stone-600 space-y-1">
                           <p className="font-semibold text-stone-900">Petunjuk Transfer:</p>
                           <p className="text-[11px]">
-                            Transfer via m-Banking atau ATM ke nomor Virtual Account di atas. Transaksi langsung terkonfirmasi otomatis tanpa butuh bukti slip.
+                            Transfer sesuai nominal tepat <strong>{formatRupiah(grandTotal)}</strong> (termasuk kode unik {uniqueCode}) via m-Banking, ATM, atau internet banking ke rekening di atas.
                           </p>
                         </div>
                       </div>
@@ -865,7 +778,7 @@ export const OrderWizardModal: React.FC<OrderWizardModalProps> = ({
                     )}
                   </div>
 
-                  {/* Automatic verification trigger button */}
+                  {/* Confirmation trigger button */}
                   <div className="pt-2 space-y-2">
                     <button
                       onClick={handleSimulatePayment}
@@ -875,22 +788,22 @@ export const OrderWizardModal: React.FC<OrderWizardModalProps> = ({
                       {isVerifying ? (
                         <>
                           <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                          <span>Mengecek Transaksi Pembayaran Otomatis...</span>
+                          <span>Mengecek Transaksi Pembayaran...</span>
                         </>
                       ) : (
                         <>
                           <CheckCircle2 className="w-4 h-4 text-emerald-300" />
-                          <span>Simulasikan Pembayaran Masuk (Verifikasi Instan)</span>
+                          <span>Saya Sudah Transfer (Simulasi Verifikasi)</span>
                         </>
                       )}
                     </button>
                     <p className="text-center text-[10px] text-stone-500">
-                      *Pada sistem live, webhook gateway mendeteksi pembayaran bank secara real-time dalam 3 detik.
+                      *Pada sistem live, pembayaran transfer BCA diverifikasi berdasarkan nominal unik (cek mutasi rekening).
                     </p>
                   </div>
                 </>
               ) : (
-                /* ORDER SUCCESS & AUTOMATED INVOICE SCREEN */
+                /* ORDER SUCCESS & INVOICE SCREEN */
                 <div className="space-y-6 text-center py-4">
                   <div className="w-16 h-16 bg-emerald-100 text-emerald-700 rounded-full flex items-center justify-center mx-auto shadow-inner">
                     <CheckCircle2 className="w-9 h-9" />
@@ -904,7 +817,7 @@ export const OrderWizardModal: React.FC<OrderWizardModalProps> = ({
                       Selamat! Undangan Digital Anda Siap
                     </h3>
                     <p className="text-xs text-stone-600 max-w-md mx-auto">
-                      Sistem otomatis kami telah menerima pembayaran sebesar <strong>{formatRupiah(grandTotal)}</strong>. Draf undangan Anda telah aktif secara otomatis!
+                      Pembayaran sebesar <strong>{formatRupiah(grandTotal)}</strong> telah diterima. Draf undangan Anda telah aktif!
                     </p>
                   </div>
 
@@ -913,7 +826,7 @@ export const OrderWizardModal: React.FC<OrderWizardModalProps> = ({
                     <div className="flex items-center justify-between border-b border-stone-200 pb-2">
                       <span className="font-bold text-stone-900 font-mono">Invoice #MK-202610-8492</span>
                       <span className="text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded font-semibold text-[10px]">
-                        LUNAS (AUTO-SETTLED)
+                        LUNAS
                       </span>
                     </div>
 

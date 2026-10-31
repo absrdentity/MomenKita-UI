@@ -18,7 +18,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenOrder }) => {
           {/* Brand info */}
           <div className="md:col-span-5 space-y-4">
             <span className="font-serif-display text-2xl font-bold text-white tracking-tight">
-              MomenKita
+              WoroWoroInv
             </span>
             <p className="text-xs text-stone-400 leading-relaxed max-w-sm">
               Platform pembuatan undangan digital elegan untuk pernikahan, khitanan, dan tasyakuran dengan sistem pembayaran otomatis instan, amplop digital terintegrasi, dan kemudahan RSVP para tamu.

@@ -25,7 +25,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenOrder }) => {
             href="#"
             className="font-serif-display text-2xl sm:text-3xl font-bold tracking-tight text-stone-900 transition-colors hover:text-amber-800"
           >
-            MomenKita
+            WoroWoroInv
           </a>
 
           {/* Zone 2: 4-6 clean text navigation links */}
