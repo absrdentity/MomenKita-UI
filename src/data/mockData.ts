@@ -1,12 +1,6 @@
 import { Template, PricingPackage, AddOn, RSVPItem } from '../types';
 
-import heroImg from '../assets/images/hero_invitation_showcase_1791090500255.jpg';
-import tplRomantic from '../assets/images/template_romantic_rose_1791090515409.jpg';
-import tplLuxury from '../assets/images/template_luxury_gold_1791090535084.jpg';
-import tplBotanical from '../assets/images/template_botanical_sage_1791090549857.jpg';
-import tplMinimalist from '../assets/images/template_modern_minimalist_1791090562242.jpg';
-
-export const HERO_IMAGE = heroImg;
+export const HERO_IMAGE = '/src/assets/images/hero_invitation_showcase_1791090500255.jpg';
 
 export const TEMPLATES_DATA: Template[] = [
   {
@@ -16,7 +10,7 @@ export const TEMPLATES_DATA: Template[] = [
     categoryLabel: 'Romantic Floral',
     theme: 'Nuansa blush pink lembut dengan aksen kaligrafi emas dan floral watercolor',
     colorPalette: ['#FCE7F3', '#F472B6', '#D97706', '#FFFBEB'],
-    previewImg: tplRomantic,
+    previewImg: '/src/assets/images/template_romantic_rose_1791090515409.jpg',
     audioTitle: 'A Thousand Years - Piano Acoustic',
     description: 'Pilihan paling disukai untuk konsep pernikahan intimate romantic, taman bunga, maupun indoor ballroom nan anggun.',
     popular: true,
@@ -29,7 +23,7 @@ export const TEMPLATES_DATA: Template[] = [
     categoryLabel: 'Luxury Gold',
     theme: 'Kombinasi hijau zamrud megah dengan ornamen foil emas klasik & mewah',
     colorPalette: ['#064E3B', '#047857', '#F59E0B', '#111827'],
-    previewImg: tplLuxury,
+    previewImg: '/src/assets/images/template_luxury_gold_1791090535084.jpg',
     audioTitle: 'Canon in D - Royal Chamber Harp',
     description: 'Cocok untuk pesta pernikahan megah, adat formal modern, serta resepsi hotel berbintang yang berkelas.',
     popular: true,
@@ -42,7 +36,7 @@ export const TEMPLATES_DATA: Template[] = [
     categoryLabel: 'Botanical Rustic',
     theme: 'Earthy green, ranting zaitun teduh dengan tekstur kertas linen organik',
     colorPalette: ['#ECFDF5', '#10B981', '#78716C', '#F5F5F4'],
-    previewImg: tplBotanical,
+    previewImg: '/src/assets/images/template_botanical_sage_1791090549857.jpg',
     audioTitle: 'Until I Found You - Lo-Fi Acoustic',
     description: 'Pilihan utama tema pesta outdoor, garden party, rustic villa, dan pernikahan bertema alam yang hangat.',
     popular: false,
@@ -55,7 +49,7 @@ export const TEMPLATES_DATA: Template[] = [
     categoryLabel: 'Modern Minimalist',
     theme: 'Tipografi majalah fashion kontemporer dengan tata letak bersih dan kontras tinggi',
     colorPalette: ['#18181B', '#27272A', '#E4E4E7', '#FAFAFA'],
-    previewImg: tplMinimalist,
+    previewImg: '/src/assets/images/template_modern_minimalist_1791090562242.jpg',
     audioTitle: 'Nothing - Bruno Major (Fingerstyle Guitar)',
     description: 'Gaya modern chic untuk pasangan yang menyukai kesederhanaan abadi, tipografi presisi, dan estetika arsitektural.',
     popular: false,
@@ -67,10 +61,10 @@ export const TEMPLATES_DATA: Template[] = [
     category: 'islamic',
     categoryLabel: 'Tradisional & Adat',
     theme: 'Motif batik prada Jawa-Sunda dengan sentuhan modern kontemporer yang sarat makna',
-    colorPalette: ['#451A03', '#92400E', '#FDE68A', '#FEF3C7'],
-    previewImg: tplLuxury,
+    colorPalette: ['#2C1409', '#92400E', '#D4AF37', '#FEF3C7'],
+    previewImg: '/src/assets/images/template_heritage_batik_1793517304667.jpg',
     audioTitle: 'Gamelan Sekar Jagad Contemporary',
-    description: 'Menonjolkan keagungan budaya nusantara dengan format digital responsif terkini.',
+    description: 'Menonjolkan keagungan budaya nusantara dengan ornamen gunungan dan batik prada emas responsif.',
     popular: false,
     features: ['Ayat Suci & Doa', 'Jadwal Prosesi Adat', 'Amplop Digital', 'Galeri Prewedding', 'Panduan Lokasi'],
   },
@@ -79,9 +73,9 @@ export const TEMPLATES_DATA: Template[] = [
     title: 'Aqiqah Little Miracle',
     category: 'aqiqah',
     categoryLabel: 'Aqiqah & Syukuran',
-    theme: 'Warna pastel ceria dan ornamen awan lembut untuk syukuran kelahiran sang buah hati',
-    colorPalette: ['#EFF6FF', '#60A5FA', '#FBBF24', '#F8FAFC'],
-    previewImg: tplRomantic,
+    theme: 'Warna pastel ceria dan ornamen bulan bintang awan lembut untuk syukuran kelahiran buah hati',
+    colorPalette: ['#E0F2FE', '#7DD3FC', '#B45309', '#FFFBEB'],
+    previewImg: '/src/assets/images/template_aqiqah_pastel_1793517304122.jpg',
     audioTitle: 'Deen Assalam - Instrumental Soft',
     description: 'Didesain khusus untuk momen aqiqah, tasyakuran kelahiran, khitanan anak, dan ulang tahun pertama.',
     popular: false,
