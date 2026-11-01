@@ -1,5 +1,5 @@
 import { Template, PricingPackage, AddOn, RSVPItem } from '../types';
-import heroImg from '../assets/images/hero_invitation_showcase_1791090500255.jpg';
+import heroInvitationImg from '../assets/images/hero_invitation_showcase_1791090500255.jpg';
 import romanticRoseImg from '../assets/images/template_romantic_rose_1791090515409.jpg';
 import luxuryGoldImg from '../assets/images/template_luxury_gold_1791090535084.jpg';
 import botanicalSageImg from '../assets/images/template_botanical_sage_1791090549857.jpg';
@@ -7,9 +7,7 @@ import modernMinimalistImg from '../assets/images/template_modern_minimalist_179
 import heritageBatikImg from '../assets/images/template_heritage_batik_1793517304667.jpg';
 import aqiqahPastelImg from '../assets/images/template_aqiqah_pastel_1793517304122.jpg';
 
-// Gambar di-import lewat Vite agar ikut di-bundle & mendapat URL hashed saat build (Vercel).
-
-export const HERO_IMAGE = heroImg;
+export const HERO_IMAGE = heroInvitationImg;
 
 export const TEMPLATES_DATA: Template[] = [
   {
