@@ -1,11 +1,12 @@
 import React from 'react';
-import { Heart } from 'lucide-react';
+import { Heart, QrCode } from 'lucide-react';
 
 interface FooterProps {
   onOpenOrder: () => void;
+  onOpenMerchantSettings: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onOpenOrder }) => {
+export const Footer: React.FC<FooterProps> = ({ onOpenOrder, onOpenMerchantSettings }) => {
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: 'smooth' });
@@ -18,7 +19,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenOrder }) => {
           {/* Brand info */}
           <div className="md:col-span-5 space-y-4">
             <span className="font-serif-display text-2xl font-bold text-white tracking-tight">
-              WoroWoroInv
+              MomenKita
             </span>
             <p className="text-xs text-stone-400 leading-relaxed max-w-sm">
               Platform pembuatan undangan digital elegan untuk pernikahan, khitanan, dan tasyakuran dengan sistem pembayaran otomatis instan, amplop digital terintegrasi, dan kemudahan RSVP para tamu.
@@ -85,12 +86,19 @@ export const Footer: React.FC<FooterProps> = ({ onOpenOrder }) => {
             <p className="text-xs text-stone-400">
               Pilih tema sekarang, selesaikan data mempelai, dan undang tamu Anda hari ini juga.
             </p>
-            <div>
+            <div className="flex flex-wrap items-center gap-2.5">
               <button
                 onClick={onOpenOrder}
                 className="px-5 py-2.5 bg-amber-600 hover:bg-amber-500 text-stone-950 font-semibold text-xs rounded-lg transition-colors cursor-pointer"
               >
                 Pesan Undangan Sekarang
+              </button>
+              <button
+                onClick={onOpenMerchantSettings}
+                className="px-4 py-2.5 bg-stone-800 hover:bg-stone-700 text-stone-200 font-medium text-xs rounded-lg transition-colors flex items-center gap-1.5 cursor-pointer"
+              >
+                <QrCode className="w-3.5 h-3.5 text-amber-400" />
+                <span>Pengaturan QRIS Toko</span>
               </button>
             </div>
             <div className="pt-2 text-[11px] text-stone-500">

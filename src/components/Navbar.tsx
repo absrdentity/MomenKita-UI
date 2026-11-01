@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Menu, X, Sparkles } from 'lucide-react';
+import { Menu, X, Sparkles, QrCode } from 'lucide-react';
 
 interface NavbarProps {
   onOpenOrder: (templateId?: string, packageId?: string) => void;
+  onOpenMerchantSettings: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ onOpenOrder }) => {
+export const Navbar: React.FC<NavbarProps> = ({ onOpenOrder, onOpenMerchantSettings }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const scrollToSection = (id: string) => {
@@ -25,7 +26,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenOrder }) => {
             href="#"
             className="font-serif-display text-2xl sm:text-3xl font-bold tracking-tight text-stone-900 transition-colors hover:text-amber-800"
           >
-            WoroWoroInv
+            MomenKita
           </a>
 
           {/* Zone 2: 4-6 clean text navigation links */}
@@ -63,10 +64,18 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenOrder }) => {
           </nav>
 
           {/* Zone 3: 1-2 primary actions */}
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden md:flex items-center gap-2.5">
+            <button
+              onClick={onOpenMerchantSettings}
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-medium text-stone-700 hover:text-stone-950 bg-stone-100 hover:bg-stone-200/80 rounded-full transition-colors cursor-pointer whitespace-nowrap"
+              title="Pengaturan QRIS & Rekening Pembayaran Toko"
+            >
+              <QrCode className="w-3.5 h-3.5 text-amber-800" />
+              <span>Atur QRIS</span>
+            </button>
             <button
               onClick={() => onOpenOrder()}
-              className="inline-flex items-center gap-2 px-5 py-2.5 text-xs font-semibold uppercase tracking-wider text-white bg-stone-900 rounded-full hover:bg-stone-800 transition-all shadow-sm hover:shadow"
+              className="inline-flex items-center gap-2 px-5 py-2.5 text-xs font-semibold uppercase tracking-wider text-white bg-stone-900 rounded-full hover:bg-stone-800 transition-all shadow-sm hover:shadow cursor-pointer whitespace-nowrap"
             >
               <Sparkles className="w-3.5 h-3.5 text-amber-300" />
               <span>Buat Undangan</span>
@@ -119,7 +128,17 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenOrder }) => {
           >
             Bantuan & FAQ
           </button>
-          <div className="pt-2">
+          <div className="pt-2 space-y-2">
+            <button
+              onClick={() => {
+                setMobileMenuOpen(false);
+                onOpenMerchantSettings();
+              }}
+              className="w-full py-2.5 text-center text-xs font-semibold text-stone-800 bg-stone-200/80 rounded-lg hover:bg-stone-200 flex items-center justify-center gap-1.5"
+            >
+              <QrCode className="w-4 h-4 text-amber-800" />
+              <span>Atur QRIS Pembayaran Toko</span>
+            </button>
             <button
               onClick={() => {
                 setMobileMenuOpen(false);

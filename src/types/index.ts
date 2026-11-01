@@ -70,6 +70,7 @@ export interface OrderData {
   
   // Amplop digital
   bankAccounts: BankAccount[];
+  coupleQrisImage?: string;
   
   // Customer contact
   customerName: string;
@@ -80,6 +81,15 @@ export interface OrderData {
   paymentMethod: 'qris' | 'va_bca' | 'va_mandiri' | 'va_bri' | 'gopay' | 'shopeepay';
   paymentStatus: 'pending' | 'verifying' | 'paid';
   createdAt: string;
+}
+
+export interface MerchantPaymentSettings {
+  merchantName: string;
+  nmid: string;
+  qrisImageUrl: string;
+  vaBcaNumber: string;
+  vaMandiriNumber: string;
+  whatsappAdmin: string;
 }
 
 export interface RSVPItem {

@@ -1,70 +1,17 @@
 import { Template, PricingPackage, AddOn, RSVPItem } from '../types';
-// ---------------------------------------------------------------------------
-// GAMBAR
-// Semua gambar di src/assets/images dimuat lewat Vite (import.meta.glob) sehingga
-// ikut di-bundle dan mendapat URL valid saat deploy ke Vercel.
-// Gambar dicari berdasarkan AWALAN nama file, jadi angka timestamp di belakang
-// nama file boleh berubah tanpa membuat gambar hilang.
-// ---------------------------------------------------------------------------
-const IMAGE_MODULES = import.meta.glob(
-  '../assets/images/*.{jpg,jpeg,png,webp,avif,JPG,JPEG,PNG,WEBP}',
-  { eager: true, import: 'default' }
-) as Record<string, string>;
+import {
+  HERO_IMAGE as EMBEDDED_HERO_IMG,
+  ROMANTIC_ROSE_IMG,
+  LUXURY_GOLD_IMG,
+  BOTANICAL_SAGE_IMG,
+  MODERN_MINIMALIST_IMG,
+  HERITAGE_BATIK_IMG,
+  AQIQAH_PASTEL_IMG,
+} from './embeddedImages';
 
-const IMAGE_ENTRIES = Object.entries(IMAGE_MODULES).map(([path, url]) => ({
-  name: (path.split('/').pop() || '').toLowerCase(),
-  url,
-}));
+export const HERO_IMAGE = EMBEDDED_HERO_IMG;
 
-const findImage = (prefix: string): string | undefined => {
-  const p = prefix.toLowerCase();
-  const matches = IMAGE_ENTRIES.filter((e) => e.name.startsWith(p));
-  // Jika ada lebih dari satu file berawalan sama, pakai yang namanya paling akhir
-  // (timestamp terbesar = file terbaru).
-  matches.sort((a, b) => a.name.localeCompare(b.name));
-  return matches.length ? matches[matches.length - 1].url : undefined;
-};
-
-// Gambar pengganti (SVG inline) agar kartu tidak pernah kosong/rusak.
-const makePlaceholder = (label: string, colors: string[]): string => {
-  const c1 = colors[0] || '#E7E5E4';
-  const c2 = colors[1] || '#A8A29E';
-  const svg =
-    `<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">` +
-    `<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">` +
-    `<stop offset="0" stop-color="${c1}"/><stop offset="1" stop-color="${c2}"/>` +
-    `</linearGradient></defs>` +
-    `<rect width="800" height="600" fill="url(#g)"/>` +
-    `<text x="400" y="310" font-family="Georgia, serif" font-size="40" ` +
-    `text-anchor="middle" fill="#ffffff" fill-opacity="0.9">${label.replace(/&/g, '&amp;')}</text>` +
-    `</svg>`;
-  return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
-};
-
-const resolveImage = (prefix: string, label: string, colors: string[]): string => {
-  const found = findImage(prefix);
-  if (!found && typeof console !== 'undefined') {
-    console.warn(
-      `[mockData] Gambar berawalan "${prefix}" tidak ditemukan di src/assets/images. ` +
-        `Tersedia: ${IMAGE_ENTRIES.map((e) => e.name).join(', ') || '(kosong)'}`
-    );
-  }
-  return found || makePlaceholder(label, colors);
-};
-
-export const HERO_IMAGE = resolveImage('hero_invitation_showcase', 'MomenKita', ['#FCE7F3', '#D97706']);
-
-// Awalan nama file gambar untuk tiap template (kunci = id template)
-const TEMPLATE_IMAGE_PREFIX: Record<string, string> = {
-  'tpl-romantic-rose': 'template_romantic_rose',
-  'tpl-luxury-emerald': 'template_luxury_gold',
-  'tpl-botanical-sage': 'template_botanical_sage',
-  'tpl-modern-noir': 'template_modern_minimalist',
-  'tpl-heritage-batik': 'template_heritage_batik',
-  'tpl-little-miracle': 'template_aqiqah_pastel',
-};
-
-const BASE_TEMPLATES: Template[] = [
+export const TEMPLATES_DATA: Template[] = [
   {
     id: 'tpl-romantic-rose',
     title: 'Serenade Blush & Gold',
@@ -72,7 +19,7 @@ const BASE_TEMPLATES: Template[] = [
     categoryLabel: 'Romantic Floral',
     theme: 'Nuansa blush pink lembut dengan aksen kaligrafi emas dan floral watercolor',
     colorPalette: ['#FCE7F3', '#F472B6', '#D97706', '#FFFBEB'],
-    previewImg: '',
+    previewImg: ROMANTIC_ROSE_IMG,
     audioTitle: 'A Thousand Years - Piano Acoustic',
     description: 'Pilihan paling disukai untuk konsep pernikahan intimate romantic, taman bunga, maupun indoor ballroom nan anggun.',
     popular: true,
@@ -85,7 +32,7 @@ const BASE_TEMPLATES: Template[] = [
     categoryLabel: 'Luxury Gold',
     theme: 'Kombinasi hijau zamrud megah dengan ornamen foil emas klasik & mewah',
     colorPalette: ['#064E3B', '#047857', '#F59E0B', '#111827'],
-    previewImg: '',
+    previewImg: LUXURY_GOLD_IMG,
     audioTitle: 'Canon in D - Royal Chamber Harp',
     description: 'Cocok untuk pesta pernikahan megah, adat formal modern, serta resepsi hotel berbintang yang berkelas.',
     popular: true,
@@ -98,7 +45,7 @@ const BASE_TEMPLATES: Template[] = [
     categoryLabel: 'Botanical Rustic',
     theme: 'Earthy green, ranting zaitun teduh dengan tekstur kertas linen organik',
     colorPalette: ['#ECFDF5', '#10B981', '#78716C', '#F5F5F4'],
-    previewImg: '',
+    previewImg: BOTANICAL_SAGE_IMG,
     audioTitle: 'Until I Found You - Lo-Fi Acoustic',
     description: 'Pilihan utama tema pesta outdoor, garden party, rustic villa, dan pernikahan bertema alam yang hangat.',
     popular: false,
@@ -111,7 +58,7 @@ const BASE_TEMPLATES: Template[] = [
     categoryLabel: 'Modern Minimalist',
     theme: 'Tipografi majalah fashion kontemporer dengan tata letak bersih dan kontras tinggi',
     colorPalette: ['#18181B', '#27272A', '#E4E4E7', '#FAFAFA'],
-    previewImg: '',
+    previewImg: MODERN_MINIMALIST_IMG,
     audioTitle: 'Nothing - Bruno Major (Fingerstyle Guitar)',
     description: 'Gaya modern chic untuk pasangan yang menyukai kesederhanaan abadi, tipografi presisi, dan estetika arsitektural.',
     popular: false,
@@ -124,7 +71,7 @@ const BASE_TEMPLATES: Template[] = [
     categoryLabel: 'Tradisional & Adat',
     theme: 'Motif batik prada Jawa-Sunda dengan sentuhan modern kontemporer yang sarat makna',
     colorPalette: ['#2C1409', '#92400E', '#D4AF37', '#FEF3C7'],
-    previewImg: '',
+    previewImg: HERITAGE_BATIK_IMG,
     audioTitle: 'Gamelan Sekar Jagad Contemporary',
     description: 'Menonjolkan keagungan budaya nusantara dengan ornamen gunungan dan batik prada emas responsif.',
     popular: false,
@@ -137,22 +84,13 @@ const BASE_TEMPLATES: Template[] = [
     categoryLabel: 'Aqiqah & Syukuran',
     theme: 'Warna pastel ceria dan ornamen bulan bintang awan lembut untuk syukuran kelahiran buah hati',
     colorPalette: ['#E0F2FE', '#7DD3FC', '#B45309', '#FFFBEB'],
-    previewImg: '',
+    previewImg: AQIQAH_PASTEL_IMG,
     audioTitle: 'Deen Assalam - Instrumental Soft',
     description: 'Didesain khusus untuk momen aqiqah, tasyakuran kelahiran, khitanan anak, dan ulang tahun pertama.',
     popular: false,
     features: ['Biodata Bayi', 'Doa Syukuran', 'Konfirmasi Kehadiran', 'Ucapan Digital', 'Google Maps Venue'],
   },
 ];
-
-export const TEMPLATES_DATA: Template[] = BASE_TEMPLATES.map((t) => ({
-  ...t,
-  previewImg: resolveImage(
-    TEMPLATE_IMAGE_PREFIX[t.id] || t.id,
-    t.title,
-    t.colorPalette
-  ),
-}));
 
 export const PRICING_PACKAGES: PricingPackage[] = [
   {

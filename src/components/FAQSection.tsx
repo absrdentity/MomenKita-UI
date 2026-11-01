@@ -65,7 +65,7 @@ export const FAQSection: React.FC = () => {
           </p>
           <div className="pt-2">
             <a
-              href="https://wa.me/6282133019386?text=Halo%20WoroWoroInv,%20saya%20ingin%20konsultasi%20undangan%20digital"
+              href="https://wa.me/6281234567890?text=Halo%20MomenKita,%20saya%20ingin%20konsultasi%20undangan%20digital"
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center gap-2 px-5 py-2.5 bg-stone-900 hover:bg-stone-800 text-white text-xs font-semibold rounded-lg transition-colors"
